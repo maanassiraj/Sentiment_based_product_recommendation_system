@@ -23,4 +23,32 @@ In order to do this, you planned to build a sentiment-based product recommendati
 ### Data sourcing and sentiment analysis
 In this task, you have to analyse product reviews after some text preprocessing steps and build an ML model to get the sentiments corresponding to the users' reviews and ratings for multiple products. 
 
-The dataset that you are going to use is inspired by this Kaggle competition. We have made a subset of the original dataset, which has been provided below.
+The dataset that you are going to use is inspired by this [Kaggle competition](https://www.kaggle.com/datafiniti/grammar-and-online-product-reviews). You will be using a subset of the original dataset, which has been provided in the repository. This dataset consists of 30,000 reviews for more than 200 different products. The reviews and ratings are given by more than 20,000 users. Please refer to the attribute description file present in the repository to get the details about the columns of the Review Dataset.
+
+The steps to be performed for the first task are given below.
+1. Exploratory data analysis
+2. Data cleaning
+3. Text preprocessing
+4. Feature extraction: In order to extract features from the text data, you may choose from any of the methods, including bag-of-words, TF-IDF vectorization or word embedding.
+5. Training a text classification model: You need to build at least three ML models. You then need to analyse the performance of each of these models and choose the best model. 
+
+
+### Building a recommendation system
+Build multiple recommendation systems and choose the best suited one. Once you get the best-suited recommendation system, the next task is to recommend 20 products that a user is most likely to purchase based on the ratings. You can use the 'reviews_username' (one of the columns in the dataset) to identify your user. 
+
+
+### Improving the recommendations using the sentiment analysis model
+Now, the next task is to link this recommendation system with the sentiment analysis model that was built earlier. Once you recommend 20 products to a particular user using the recommendation engine, you need to filter out the 5 best products based on the sentiments of the 20 recommended product reviews. In this way, you will get an ML model (for sentiments) and the best-suited recommendation system. Next, you need to deploy the entire project publically.
+
+
+### Deployment of this end to end project with a user interface
+Once you get the ML model and the best-suited recommendation system, you will deploy the end-to-end project. You need to use the Flask framework, which is majorly used to create web applications to deploy machine learning models. To make the web application public, use Heroku.
+
+Next, you need to include the following features in the user interface.
+* Take any of the existing usernames as input. (users in the training data)
+* Create a submit button to submit the username.
+* Once you press the submit button, it should recommend 5 products based on the entered username.
+Note: An important point that you need to consider here is that the number of users and the number of products are fixed in this case study, and you are doing the sentiment analysis and building the recommendation system only for those users who have already submitted the reviews or ratings corresponding to some of the products in the dataset. 
+
+
+
