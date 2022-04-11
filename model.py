@@ -58,7 +58,7 @@ def text_preprocessing_3(review):
     return review
 
 
-def generate_perc_pos_reviews(prod_name, data, nlp):
+def generate_perc_pos_reviews(prod_name, data, nlp, tf_idf_vectorizer, sent_model):
     prod_reviews = data.loc[data["name"] == prod_name, "reviews_text"]
     text_preproc_1 = np.vectorize(text_preprocessing_1)
     prod_reviews = pd.Series(text_preproc_1(prod_reviews))
@@ -67,8 +67,6 @@ def generate_perc_pos_reviews(prod_name, data, nlp):
     text_preproc_3 = np.vectorize(text_preprocessing_3)
     prod_reviews = pd.Series(text_preproc_3(prod_reviews))
     prod_reviews.drop_duplicates(inplace= True)
-    tf_idf_vectorizer = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/tf_idf_vectorizer.pkl?raw=true")
-    sent_model = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/sentiment_model.pkl?raw=true")
     prod_reviews = tf_idf_vectorizer.transform(prod_reviews)
     predictions = sent_model.predict(prod_reviews)
     return np.sum(predictions) / len(predictions)
@@ -82,5 +80,7 @@ def generate_top5_prod_recom(user_name):
     predicted_rat = recommendation_eng.loc[:, user_name].sort_values(ascending= False)
     top_20_recom = predicted_rat[predicted_rat > 0].iloc[:20].index
     recom = pd.DataFrame({"prod_recommendations": top_20_recom})
-    recom["perc_pos_reviews"] = recom["prod_recommendations"].apply(generate_perc_pos_reviews, args=(data, nlp))
+    tf_idf_vectorizer = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/tf_idf_vectorizer.pkl?raw=true")
+    sent_model = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/sentiment_model.pkl?raw=true")
+    recom["perc_pos_reviews"] = recom["prod_recommendations"].apply(generate_perc_pos_reviews, args=(data, nlp, tf_idf_vectorizer, sent_model))
     return list(recom.sort_values(by="perc_pos_reviews", ascending=False)["prod_recommendations"].iloc[:5])
