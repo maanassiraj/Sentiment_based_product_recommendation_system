@@ -7,18 +7,20 @@ import re
 import string
 import spacy
 import pickle
+import requests
+from io import BytesIO
 import random
 random.seed(100)
 np.random.seed(100)
 
 
-def pickle_load(name):
-    with open(name, "rb") as f:
+def pickle_load(link):
+    with BytesIO(requests.get(link).content) as f:
         return pickle.load(f)
 
 
 def data_load():
-    dataset = pd.read_csv("C:/Users/maana/Upgrad_course/Capstone Project/sample30.csv")
+    dataset = pd.read_csv("https://raw.githubusercontent.com/maanassiraj/Sentiment_based_product_recommendation_system/master/sample30.csv")
     data = dataset[["name", "reviews_text", "reviews_title"]]
     data.drop_duplicates(inplace=True)
     data = data.loc[~(data["name"].isnull() | data["reviews_text"].isnull() | data["reviews_title"].isnull())]
@@ -65,8 +67,8 @@ def generate_perc_pos_reviews(prod_name, data, nlp):
     text_preproc_3 = np.vectorize(text_preprocessing_3)
     prod_reviews = pd.Series(text_preproc_3(prod_reviews))
     prod_reviews.drop_duplicates(inplace= True)
-    tf_idf_vectorizer = pickle_load("C:/Users/maana/Upgrad_course/Capstone Project/pickle_files/tf_idf_vectorizer.pkl")
-    sent_model = pickle_load("C:/Users/maana/Upgrad_course/Capstone Project/pickle_files/sentiment_model.pkl")
+    tf_idf_vectorizer = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/tf_idf_vectorizer.pkl?raw=true")
+    sent_model = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/sentiment_model.pkl?raw=true")
     prod_reviews = tf_idf_vectorizer.transform(prod_reviews)
     predictions = sent_model.predict(prod_reviews)
     return np.sum(predictions) / len(predictions)
@@ -76,7 +78,7 @@ def generate_perc_pos_reviews(prod_name, data, nlp):
 def generate_top5_prod_recom(user_name):
     nlp = spacy.load("en_core_web_sm", disable = ["parser", "ner"])
     data = data_load()
-    recommendation_eng = pickle_load("C:/Users/maana/Upgrad_course/Capstone Project/pickle_files/recommendation_engine.pkl")
+    recommendation_eng = pickle_load("https://github.com/maanassiraj/Sentiment_based_product_recommendation_system/blob/master/pickle_files/recommendation_engine.pkl?raw=true")
     predicted_rat = recommendation_eng.loc[:, user_name].sort_values(ascending= False)
     top_20_recom = predicted_rat[predicted_rat > 0].iloc[:20].index
     recom = pd.DataFrame({"prod_recommendations": top_20_recom})
