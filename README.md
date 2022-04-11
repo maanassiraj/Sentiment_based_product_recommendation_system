@@ -20,3 +20,7 @@ In order to do this, you planned to build a sentiment-based product recommendati
 * Improving the recommendations using the sentiment analysis model
 * Deploying the end-to-end project with a user interface
  
+### Data sourcing and sentiment analysis
+In this task, you have to analyse product reviews after some text preprocessing steps and build an ML model to get the sentiments corresponding to the users' reviews and ratings for multiple products. 
+
+The dataset that you are going to use is inspired by this Kaggle competition. We have made a subset of the original dataset, which has been provided below.
