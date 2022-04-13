@@ -44,11 +44,8 @@ def text_preprocessing_1(review):
 
 
 
-def text_preprocessing_2(review, nlp):
-    doc = nlp(review)
-    pos_filtered_rev = " ".join([token.lemma_ for token in doc if token.pos_ not in ["PROPN", "NOUN"]])
-    return pos_filtered_rev
-
+def text_preprocessing_2(reviews, nlp):
+    return [" ".join([token.lemma_ for token in review if token.pos_ not in ["PROPN", "NOUN"]]) for review in nlp.pipe(reviews)]
 
   
 def text_preprocessing_3(review):
@@ -62,8 +59,7 @@ def generate_perc_pos_reviews(prod_name, data, nlp, tf_idf_vectorizer, sent_mode
     prod_reviews = data.loc[data["name"] == prod_name, "reviews_text"]
     text_preproc_1 = np.vectorize(text_preprocessing_1)
     prod_reviews = pd.Series(text_preproc_1(prod_reviews))
-    text_preproc_2 = np.vectorize(text_preprocessing_2)
-    prod_reviews = pd.Series(text_preproc_2(prod_reviews, nlp))
+    prod_reviews = pd.Series(text_preprocessing_2(prod_reviews, nlp))
     text_preproc_3 = np.vectorize(text_preprocessing_3)
     prod_reviews = pd.Series(text_preproc_3(prod_reviews))
     prod_reviews.drop_duplicates(inplace= True)
