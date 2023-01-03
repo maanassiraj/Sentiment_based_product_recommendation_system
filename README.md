@@ -26,14 +26,6 @@ In this task, you have to analyse product reviews after some text preprocessing 
 The dataset that you are going to use is inspired by this [Kaggle competition](https://www.kaggle.com/datafiniti/grammar-and-online-product-reviews). You will be using a subset of the original dataset, which has been provided in the repository. This dataset consists of 30,000 reviews for more than 200 different products. The reviews and ratings are given by more than 20,000 users. Please refer to the attribute description file present in the repository to get the details about the columns of the Review Dataset.
 
 
-The steps to be performed for the first task are given below.
-1. Exploratory data analysis
-2. Data cleaning
-3. Text preprocessing
-4. Feature extraction: In order to extract features from the text data, you may choose from any of the methods, including bag-of-words, TF-IDF vectorization or word embedding.
-5. Training a text classification model: You need to build at least three ML models. You then need to analyse the performance of each of these models and choose the best model. 
-
-
 ### Building a recommendation system
 Build multiple recommendation systems and choose the best suited one. Once you get the best-suited recommendation system, the next task is to recommend 20 products that a user is most likely to purchase based on the ratings. You can use the 'reviews_username' (one of the columns in the dataset) to identify your user. 
 
