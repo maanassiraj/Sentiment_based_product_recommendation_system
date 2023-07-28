@@ -43,5 +43,3 @@ Next, you need to include the following features in the user interface.
 * Once you press the submit button, it should recommend 5 products based on the entered username.
 Note: An important point that you need to consider here is that the number of users and the number of products are fixed in this case study, and you are doing the sentiment analysis and building the recommendation system only for those users who have already submitted the reviews or ratings corresponding to some of the products in the dataset. 
 
-
-# APP URL: (https://sentim-prod-recom-sys.herokuapp.com/)
